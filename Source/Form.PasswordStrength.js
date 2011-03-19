@@ -14,7 +14,9 @@ provides: [Form.PasswordStrength, String.strength]
 
 */
 
-if (!window.Form) window.Form = {};
+(function(){
+
+if (!this.Form) this.Form = {};
 
 var Form.PasswordStrength = new Class({
 	
@@ -82,3 +84,5 @@ String.implement({
 		return (n == 0) ? 0 : (this.length * n.log() / (2).log()).round();
 	}
 });
+
+})();
