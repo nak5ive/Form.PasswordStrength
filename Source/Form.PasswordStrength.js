@@ -1,3 +1,19 @@
+/*
+---
+description: Form.PasswordStrength class.
+
+license: MIT-style
+
+authors:
+- Al Kent
+
+requires:
+- core/1.3.1: '*'
+
+provides: [Form.PasswordStrength, String.strength]
+
+*/
+
 if (!window.Form) window.Form = {};
 
 var Form.PasswordStrength = new Class({
