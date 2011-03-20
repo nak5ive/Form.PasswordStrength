@@ -1,7 +1,7 @@
 Form.PasswordStrength
 =====================
 
-Places an animated meter below an input element, displaying the strength of a password calculated using simple [http://en.wikipedia.org/wiki/Entropy_(information_theory) information entropy].
+Places an animated meter below an input element, displaying the strength of a password calculated using simple information entropy.
 
 ![Screenshot](http://nak5ive.github.com/Form.PasswordStrength/screenshot.png)
 
@@ -18,3 +18,9 @@ Javascript:
 
 HTML:
 	<input id="mypassword" type="password" name="mypassword" value=""/>
+
+
+References
+----------
+
+1. Information Entropy: http://en.wikipedia.org/wiki/Entropy_(information_theory)
