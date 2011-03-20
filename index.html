@@ -4,10 +4,10 @@
 		<title>Form.PasswordStrength</title>
 		<link rel="stylesheet" type="text/css" href="styles.css"/>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.1/mootools-yui-compressed.js"></script>
-		<script type="text/javascript" src="https://github.com/nak5ive/Form.PasswordStrength/raw/master/Source/Form.PasswordStrength.js"></script>
+		<script type="text/javascript" src="Form.PasswordStrength.js"></script>
 		<script type="text/javascript">
-			new Form.PasswordStrength({
-				element: 'pwd'
+			window.addEvent('domready', function(){
+				
 			});
 		</script>
 	</head>
@@ -15,7 +15,37 @@
 		<div id="header">
 			<h1>Form.PasswordStrength</h1>
 		</div>
-		<label for="pwd">Password</label>
-		<input id="pwd" type="password" name="pwd" value=""/>
+		<div style="border-bottom: 1px solid #cccccc; padding: 1em;">
+			<label for="pwd1">Password</label>
+			<input id="pwd1" type="password" name="pwd1" value=""/>
+			<script type="text/javascript">
+				new Form.PasswordStrength({
+					element: 'pwd1'
+				});
+			</script>
+			<pre>
+				new Form.PasswordStrength({
+					element: 'pwd1'
+				});
+			</pre>
+		</div>
+		<div style="border-bottom: 1px solid #cccccc; padding: 1em;">
+			<label for="pwd2">Password</label>
+			<input id="pwd2" type="password" name="pwd2" value=""/>
+			<script type="text/javascript">
+				new Form.PasswordStrength({
+					element: 'pwd2',
+					bgcolor: '#aaaaaa',
+					threshhold: 20
+				});
+			</script>
+			<pre>
+				new Form.PasswordStrength({
+					element: 'pwd2',
+					bgcolor: '#aaaaaa',
+					threshhold: 20
+				});
+			</pre>
+		</div>
 	</body>
 </html>
