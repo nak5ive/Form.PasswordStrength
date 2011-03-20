@@ -5,11 +5,6 @@
 		<link rel="stylesheet" type="text/css" href="styles.css"/>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/mootools/1.3.1/mootools-yui-compressed.js"></script>
 		<script type="text/javascript" src="Form.PasswordStrength.js"></script>
-		<script type="text/javascript">
-			window.addEvent('domready', function(){
-				
-			});
-		</script>
 	</head>
 	<body>
 		<div id="header">
@@ -23,11 +18,6 @@
 					element: 'pwd1'
 				});
 			</script>
-			<pre>
-				new Form.PasswordStrength({
-					element: 'pwd1'
-				});
-			</pre>
 		</div>
 		<div style="border-bottom: 1px solid #cccccc; padding: 1em;">
 			<label for="pwd2">Password</label>
@@ -35,17 +25,9 @@
 			<script type="text/javascript">
 				new Form.PasswordStrength({
 					element: 'pwd2',
-					bgcolor: '#aaaaaa',
-					threshhold: 20
+					bgcolor: '#cccccc'
 				});
 			</script>
-			<pre>
-				new Form.PasswordStrength({
-					element: 'pwd2',
-					bgcolor: '#aaaaaa',
-					threshhold: 20
-				});
-			</pre>
 		</div>
 	</body>
 </html>

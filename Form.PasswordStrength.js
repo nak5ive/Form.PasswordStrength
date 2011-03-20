@@ -14,8 +14,6 @@ provides: [Form.PasswordStrength, String.strength]
 
 */
 
-(function(){
-
 if (!this.Form) this.Form = {};
 
 Form.PasswordStrength = new Class({
@@ -23,9 +21,10 @@ Form.PasswordStrength = new Class({
 	Implements: [Options, Events],
 	
 	options: {
-		//onChange: $empty,
+		//onUpdate: $empty,
 		element: null,
-		threshhold: 65,
+		threshold: 66,
+		primer: '',
 		height: 5,
 		opacity: 1,
 		bgcolor: 'transparent'
@@ -33,56 +32,61 @@ Form.PasswordStrength = new Class({
 	
 	element: null,
 	fx: null,
+	value: '',
 	
 	initialize: function(options){
 		this.setOptions(options);
 		this.element = $(this.options.element);
-		var coor = this.element.getCoordinates();
-		var bar = new Element('div', {
+		if (this.options.primer) this.options.threshold = this.options.primer.strength();
+		var c = this.element.getCoordinates();
+		var b = new Element('div', {
 			styles: {
 				'position': 'absolute',
-				'top': coor.top + coor.height,
-				'left': coor.left,
-				'width': coor.width,
+				'top': c.top + c.height,
+				'left': c.left,
+				'width': c.width,
 				'height': this.options.height,
 				'opacity': this.options.opacity,
 				'background-color': this.options.bgcolor
 			}
-		}).inject(document.body);
-		var meter = new Element('div', {
+		}).inject(document.body, 'bottom');
+		var m = new Element('div', {
 			styles: {
 				'width': 0,
 				'height': '100%'
 			}
-		}).inject(bar);
-		this.fx = new Fx.Morph(meter, {
+		}).inject(b);
+		this.fx = new Fx.Morph(m, {
 			duration: 'short',
 			link: 'cancel',
 			unit: '%'
 		});
-		this.element.addEvent('keyup', function(){
-			var s = this.element.get('value').strength();
-			var p = (s / this.options.threshhold).limit(0, 1);
-			if (p < 0.5) var c = ('rgb(255, ' + (255 * p * 2).round() + ', 0)').rgbToHex();
-			else var c = ('rgb(' + (255 * (1 - p) * 2).round() + ', 255, 0)').rgbToHex();
-			this.fx.start({
-				'width': (100 * p).round(),
-				'background-color': c
-			});
-			this.fireEvent('change', [s]);
-		}.bind(this));
+		this.element.addEvent('keyup', this.animate.bind(this));
+		if (this.element.get('value')) this.animate();
+	},
+	
+	animate: function(){
+		var v = this.element.get('value');
+		if (v == this.value) return;
+		this.value = v;
+		var c, s = v.strength(), r = (s / this.options.threshold).round(2).limit(0, 1);
+		if (r < 0.5) c = ('rgb(255, ' + (255 * r * 2).round() + ', 0)').rgbToHex();
+		else c = ('rgb(' + (255 * (1 - r) * 2).round() + ', 255, 0)').rgbToHex();
+		this.fx.start({
+			'width': 100 * r,
+			'background-color': c
+		});
+		this.fireEvent('update', [s, r]);
 	}
 });
 
 String.implement({
 	strength: function(){
 		var n = 0;
-		if (this.match(/[0-9]+/)) n += 10;
+		if (this.match(/\d/)) n += 10;
 		if (this.match(/[a-z]+/)) n += 26;
 		if (this.match(/[A-Z]+/)) n += 26;
-		if (this.match(/[^a-zA-Z0-9]+/)) n += 32;
+		if (this.match(/[^\da-zA-Z]/)) n += 33;
 		return (n == 0) ? 0 : (this.length * n.log() / (2).log()).round();
 	}
 });
-
-})();
