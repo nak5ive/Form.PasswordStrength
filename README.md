@@ -26,12 +26,18 @@ Instantiate a new Form.PasswordStrength object and set it's options:
 Options
 -------
 
-**threshold** - An entropy value that represents the *highest* password strength available. In this application, entropy is a measure of strength dependent on the length of a string and the sample size of characters for which a brute force attack must consider when looking for a match. Defaults to 66 (the entropy value for a 10-character string consisting of at least 1 number, 1 lowercase letter, 1 uppercase letter, and 1 special character).
+**threshold** - An entropy value that represents the *highest* password strength to measure. In this application, entropy is a measure of strength dependent on the length of a string and the sample size of characters for which a brute force attack must consider when looking for a match. Defaults to 66 (the entropy value for a 10-character string consisting of at least 1 number, 1 lowercase letter, 1 uppercase letter, and 1 special character).
 
-**primer** - A sample string that represents the *highest* password strength available. Since strength in entropy measurement is relative to what is considered to be *strong*, it can be difficult to guess a number value to represent **threshold**. Set this option with a string that has all the characteristics you would expect in a *strong* password. This option will override the **threshold** option. Defaults to ''.
+**primer** - A sample string that represents the *highest* password strength to measure. Since strength in entropy is relative to what is considered to be *strong*, it can be difficult to guess a number value to represent **threshold**. Set this option with a string that has all the characteristics you would expect in a *strong* password. This option will override the **threshold** option. Defaults to ''.
 
 **height** - The height of the strength meter, in px. Defaults to 5.
 
 **opacity** - The opacity of the strength meter, from 0 to 1. Defaults to 1.
 
-**bgcolor** - The background-color style on the strength meter. Defaults to 'transparent'.
+**bgcolor** - The background-color style attribute on the strength meter. Defaults to 'transparent'.
+
+
+Events
+------
+
+**onUpdate** - Fired every time the value of the input field changes. Arguments available [*element*, *strength*, *threshold*].

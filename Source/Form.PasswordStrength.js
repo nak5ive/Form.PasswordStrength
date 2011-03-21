@@ -75,7 +75,7 @@ Form.PasswordStrength = new Class({
 			'width': 100 * ratio,
 			'background-color': color
 		});
-		this.fireEvent('update', [strength, ratio]);
+		this.fireEvent('update', [this.element, strength, this.options.threshold]);
 	}
 });
 
