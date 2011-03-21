@@ -60,7 +60,7 @@ Form.PasswordStrength = new Class({
 			link: 'cancel',
 			unit: '%'
 		});
-		this.element.addEvent('keyup', this.animate.bind(this));
+		this.element.addEvent('keyupandchange', this.animate.bind(this));
 		if (this.element.get('value')) this.animate();
 	},
 	
@@ -78,6 +78,14 @@ Form.PasswordStrength = new Class({
 		this.fireEvent('update', [this.element, strength, this.options.threshold]);
 	}
 });
+
+Element.Events.keyupandchange = {
+	base: 'keyup',
+	condition: function(event){
+		console.log(this);
+		return true;
+	}
+};
 
 String.implement({
 	strength: function(){
