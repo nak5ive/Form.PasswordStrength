@@ -10,7 +10,7 @@ authors:
 requires:
 - core/1.3.1: '*'
 
-provides: [Form.PasswordStrength, String.strength]
+provides: [Form.PasswordStrength, Element.Events.keyupandchange, String.strength]
 
 */
 
@@ -30,7 +30,6 @@ Form.PasswordStrength = new Class({
 	},
 	
 	element: null,
-	value: '',
 	fx: null,
 	
 	initialize: function(el, options){
@@ -66,8 +65,6 @@ Form.PasswordStrength = new Class({
 	
 	animate: function(){
 		var value = this.element.get('value');
-		if (value == this.value) return;
-		this.value = value;
 		var color, strength = value.strength(), ratio = (strength / this.options.threshold).round(2).limit(0, 1);
 		if (ratio < 0.5) color = ('rgb(255, ' + (255 * ratio * 2).round() + ', 0)').rgbToHex();
 		else color = ('rgb(' + (255 * (1 - ratio) * 2).round() + ', 255, 0)').rgbToHex();
@@ -82,7 +79,10 @@ Form.PasswordStrength = new Class({
 Element.Events.keyupandchange = {
 	base: 'keyup',
 	condition: function(event){
-		console.log(this);
+		var prev = this.retrieve('prev', null);
+		var cur = this.get('value');
+		if (typeOf(prev) != 'null' && prev == cur) return false;
+		this.store('prev', cur);
 		return true;
 	}
 };
