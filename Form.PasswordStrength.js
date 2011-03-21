@@ -10,7 +10,7 @@ authors:
 requires:
 - core/1.3.1: '*'
 
-provides: [Form.PasswordStrength, String.strength]
+provides: [Form.PasswordStrength, Element.Events.keyupandchange, String.strength]
 
 */
 
@@ -22,7 +22,6 @@ Form.PasswordStrength = new Class({
 	
 	options: {
 		//onUpdate: $empty,
-		element: null,
 		threshold: 66,
 		primer: '',
 		height: 5,
@@ -32,53 +31,61 @@ Form.PasswordStrength = new Class({
 	
 	element: null,
 	fx: null,
-	value: '',
 	
-	initialize: function(options){
+	initialize: function(el, options){
+		this.element = $(el);
 		this.setOptions(options);
-		this.element = $(this.options.element);
 		if (this.options.primer) this.options.threshold = this.options.primer.strength();
-		var c = this.element.getCoordinates();
-		var b = new Element('div', {
+		var coord = this.element.getCoordinates();
+		var bar = new Element('div', {
 			styles: {
 				'position': 'absolute',
-				'top': c.top + c.height,
-				'left': c.left,
-				'width': c.width,
+				'top': coord.top + coord.height,
+				'left': coord.left,
+				'width': coord.width,
 				'height': this.options.height,
 				'opacity': this.options.opacity,
 				'background-color': this.options.bgcolor
 			}
 		}).inject(document.body, 'bottom');
-		var m = new Element('div', {
+		var meter = new Element('div', {
 			styles: {
 				'width': 0,
 				'height': '100%'
 			}
-		}).inject(b);
-		this.fx = new Fx.Morph(m, {
+		}).inject(bar);
+		this.fx = new Fx.Morph(meter, {
 			duration: 'short',
 			link: 'cancel',
 			unit: '%'
 		});
-		this.element.addEvent('keyup', this.animate.bind(this));
+		this.element.addEvent('keyupandchange', this.animate.bind(this));
 		if (this.element.get('value')) this.animate();
 	},
 	
 	animate: function(){
-		var v = this.element.get('value');
-		if (v == this.value) return;
-		this.value = v;
-		var c, s = v.strength(), r = (s / this.options.threshold).round(2).limit(0, 1);
-		if (r < 0.5) c = ('rgb(255, ' + (255 * r * 2).round() + ', 0)').rgbToHex();
-		else c = ('rgb(' + (255 * (1 - r) * 2).round() + ', 255, 0)').rgbToHex();
+		var value = this.element.get('value');
+		var color, strength = value.strength(), ratio = (strength / this.options.threshold).round(2).limit(0, 1);
+		if (ratio < 0.5) color = ('rgb(255, ' + (255 * ratio * 2).round() + ', 0)').rgbToHex();
+		else color = ('rgb(' + (255 * (1 - ratio) * 2).round() + ', 255, 0)').rgbToHex();
 		this.fx.start({
-			'width': 100 * r,
-			'background-color': c
+			'width': 100 * ratio,
+			'background-color': color
 		});
-		this.fireEvent('update', [s, r]);
+		this.fireEvent('update', [this.element, strength, this.options.threshold]);
 	}
 });
+
+Element.Events.keyupandchange = {
+	base: 'keyup',
+	condition: function(event){
+		var prev = this.retrieve('prev', null);
+		var cur = this.get('value');
+		if (typeOf(prev) != 'null' && prev == cur) return false;
+		this.store('prev', cur);
+		return true;
+	}
+};
 
 String.implement({
 	strength: function(){

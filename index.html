@@ -14,17 +14,14 @@
 			<label for="pwd1">Password</label>
 			<input id="pwd1" type="password" name="pwd1" value=""/>
 			<script type="text/javascript">
-				new Form.PasswordStrength({
-					element: 'pwd1'
-				});
+				new Form.PasswordStrength('pwd1');
 			</script>
 		</div>
 		<div style="border-bottom: 1px solid #cccccc; padding: 1em;">
 			<label for="pwd2">Password</label>
 			<input id="pwd2" type="password" name="pwd2" value=""/>
 			<script type="text/javascript">
-				new Form.PasswordStrength({
-					element: 'pwd2',
+				new Form.PasswordStrength('pwd2', {
 					bgcolor: '#cccccc'
 				});
 			</script>
