@@ -1,16 +1,19 @@
 /*
 ---
-description: Form.PasswordStrength class.
+description: Form.PasswordStrength class, and basic dom methods
 
 license: MIT-style
 
 authors:
-- Al Kent
+ - Al Kent
 
 requires:
-- core/1.3.1: '*'
+ - core/1.3.1: '*'
 
-provides: [Form.PasswordStrength, Element.Events.keyupandchange, String.strength]
+provides:
+ - Form.PasswordStrength
+ - Element.Events.keyupandchange
+ - String.strength
 
 */
 
