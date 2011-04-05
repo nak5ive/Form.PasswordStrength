@@ -22,9 +22,7 @@ Instantiate a new Form.PasswordStrength object and set it's options:
 		new Form.PasswordStrength('mypassword', {options});
 	</script>
 
-View a demo here:
-
-	http://jsfiddle.net/nak5ive/yUYBb/
+View a demo here: http://jsfiddle.net/nak5ive/yUYBb/
 
 
 Options
