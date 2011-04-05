@@ -14,7 +14,7 @@ provides:
  - Form.PasswordStrength
  - Element.Events.keyupandchange
  - String.strength
-
+...
 */
 
 if (!this.Form) this.Form = {};

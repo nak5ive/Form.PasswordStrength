@@ -12,7 +12,7 @@ How to use
 Include Mootools.Core and Form.PasswordStrength in your document:
 
 	<script type="text/javascript" src="mootools-1.3.1-core-yc.js"></script>
-	<script type="text/javascript" src="Form.PasswordStrength-yc.js"></script>
+	<script type="text/javascript" src="Form.PasswordStrength.js"></script>
 
 Instantiate a new Form.PasswordStrength object and set it's options:
 
