@@ -33,7 +33,7 @@ Form.PasswordStrength = new Class({
 	fx: null,
 	
 	initialize: function(el, options){
-		this.element = $(el);
+		this.element = document.id(el);
 		this.setOptions(options);
 		if (this.options.primer) this.options.threshold = this.options.primer.strength();
 		var coord = this.element.getCoordinates();
