@@ -1,0 +1,19 @@
+{
+    "name": "nak5ive/Form.PasswordStrength",
+    "version": "0.1",
+    "type": "library",
+    "description": "Places an animated meter below an input element, displaying the strength of a password calculated using simple information entropy.",
+    "keywords": [
+        "Mootools",
+        "password",
+        "strength",
+        "entropy",
+        "forms"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nak5ive"
+        }
+    ]
+}
